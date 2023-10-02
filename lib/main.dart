@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'match_history.dart';
+import 'friend_group.dart';
+import 'profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,17 +17,19 @@ class MyApp extends StatelessWidget {
            home: DefaultTabController(
         length: 3,
         child: Scaffold(
-          body: const TabBarView(children: [
-            Text("bla bla"),
-            Text("bl ba"),
-            Text("bl ba"),
+          body: TabBarView(children: [
+            MatchHistory(),
+            FriendGroup(),
+            Profile(),
+
           ]),
           appBar: AppBar(
             backgroundColor: Color(0XFFBfa2632),
             bottom: const TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.history)),
-                Tab(icon: Icon(Icons.people_alt)),
+                Tab(icon: Icon(Icons.groups_2_rounded)),
+                Tab(icon: Icon(Icons.switch_account_rounded),)
               ],
             ),
             title: Row(
