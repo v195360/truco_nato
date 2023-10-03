@@ -112,9 +112,34 @@ class Profile extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+  floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your action here
+          // Show dialog with multiple options
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Sair'),
+                content: Text('Deseja sair da sua conta?'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      // Perform action for the first option (e.g., OK)
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Sim'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Perform action for the second option (e.g., Cancel)
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Cancelar'),
+                  ),
+                ],
+              );
+            },
+          );
         },
         child: Icon(Icons.logout),
         backgroundColor: Colors.black,
