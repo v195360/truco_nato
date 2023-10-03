@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           body: TabBarView(children: [
             MatchHistory(),
-            FriendGroup(),
+            //FriendGroup(),
             Profile(),
 
           ]),
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             bottom: const TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.history)),
-                Tab(icon: Icon(Icons.groups_2_rounded)),
+               // Tab(icon: Icon(Icons.groups_2_rounded)),
                 Tab(icon: Icon(Icons.switch_account_rounded),)
               ],
             ),
