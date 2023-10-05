@@ -1,106 +1,52 @@
 import 'package:flutter/material.dart';
 import 'match_history.dart';
-import 'friend_group.dart';
 import 'profile.dart';
+import 'login.dart';
+import 'cadastro.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-           home: DefaultTabController(
-        length: 3,
+      home: DefaultTabController(
+        length: 4, // Altere o comprimento para 5 para incluir a guia de cadastro
         child: Scaffold(
           body: TabBarView(children: [
             MatchHistory(),
-            //FriendGroup(),
             Profile(),
-
+            Login(),
+            Cadastro(), // Adicione a guia de cadastro aqui
           ]),
           appBar: AppBar(
-            backgroundColor: Color(0XFFBfa2632),
+            backgroundColor: const Color(0XFFBfa2632),
             bottom: const TabBar(
               tabs: [
                 Tab(icon: Icon(Icons.history)),
-               // Tab(icon: Icon(Icons.groups_2_rounded)),
-                Tab(icon: Icon(Icons.switch_account_rounded),)
+                // Tab(icon: Icon(Icons.groups_2_rounded)),
+                Tab(icon: Icon(Icons.switch_account_rounded)),
+                Tab(icon: Icon(Icons.account_circle)), // Ícone para a guia de login
+                Tab(icon: Icon(Icons.person_add)), // Ícone para a guia de cadastro
               ],
             ),
             title: Row(
               children: [
                 Image.asset(
-                  'assets/images/truconato.jpeg', // Replace with your image asset path
-                  height: 60, // Set the desired height
+                  'assets/images/truconato.jpeg',
+                  height: 60,
                 ),
-                const SizedBox(width: 5), // Add some spacing between image and text
+                const SizedBox(width: 5),
                 const Text("TrucoNato"),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-      
-        child: Column(
-          
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
     );
   }
 }
