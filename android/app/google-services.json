@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "53080880315",
+    "project_id": "auth-truco",
+    "storage_bucket": "auth-truco.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53080880315:android:8e2ec2ec565a7fce66259e",
+        "android_client_info": {
+          "package_name": "com.example.truco_nato"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJfrnfldk1_6p44PM2lE8qvuMK0mFWunE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

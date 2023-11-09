@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:truco_nato/match_history.dart';
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -8,6 +11,32 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;  
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+
+  // Método que realiza a validação se o email e senha colocados nos campos de login realmente existem 
+  Future<void> _signInWithEmailAndPassword() async {
+    try {
+      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      if (userCredential.user != null) {
+          // Navega para a tela de histórico 
+          Navigator.push(context, MaterialPageRoute(builder: (context) => MatchHistory()));
+          print(userCredential.user);
+      }
+    } catch (e) {
+      // Lidar com erros de autenticação
+      print('Erro de autenticação: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +63,10 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       width: 250,
                       child: TextFormField(
+                        controller: _emailController,
+                        onChanged: (text){
+                          print("Email: $text");
+                        },
                         decoration: InputDecoration(
                           labelText: 'Email',
                           border: OutlineInputBorder(),
@@ -47,6 +80,10 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       width: 250,
                       child: TextFormField(
+                        controller: _passwordController,
+                        onChanged: (text){
+                          print("Password: $text");
+                        },
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Senha',
@@ -63,7 +100,7 @@ class _LoginState extends State<Login> {
                         width: 150,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Coloque aqui a lógica para processar o login
+                            _signInWithEmailAndPassword();
                           },
                           child: Text('Enviar'),
                         ),

@@ -3,9 +3,17 @@ import 'match_history.dart';
 import 'profile.dart';
 import 'login.dart';
 import 'cadastro.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+
+Future<void> main()  async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -18,18 +26,18 @@ class MyApp extends StatelessWidget {
         length: 4, // Altere o comprimento para 5 para incluir a guia de cadastro
         child: Scaffold(
           body: TabBarView(children: [
-            MatchHistory(),
-            Profile(),
             Login(),
-            Cadastro(), // Adicione a guia de cadastro aqui
+            Cadastro(),
+            //MatchHistory(),
+            //Profile(), // Adicione a guia de cadastro aqui
           ]),
           appBar: AppBar(
             backgroundColor: const Color(0XFFBfa2632),
             bottom: const TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.history)),
+                //Tab(icon: Icon(Icons.history)),
                 // Tab(icon: Icon(Icons.groups_2_rounded)),
-                Tab(icon: Icon(Icons.switch_account_rounded)),
+                //Tab(icon: Icon(Icons.switch_account_rounded)),
                 Tab(icon: Icon(Icons.account_circle)), // Ícone para a guia de login
                 Tab(icon: Icon(Icons.person_add)), // Ícone para a guia de cadastro
               ],
