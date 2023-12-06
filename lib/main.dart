@@ -6,14 +6,12 @@ import 'cadastro.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-
-Future<void> main()  async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -23,13 +21,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 4, // Altere o comprimento para 5 para incluir a guia de cadastro
+        length:
+            4, // Altere o comprimento para 5 para incluir a guia de cadastro
         child: Scaffold(
           body: TabBarView(children: [
             Login(),
             Cadastro(),
-            //MatchHistory(),
-            //Profile(), // Adicione a guia de cadastro aqui
           ]),
           appBar: AppBar(
             backgroundColor: const Color(0XFFBfa2632),
@@ -38,8 +35,12 @@ class MyApp extends StatelessWidget {
                 //Tab(icon: Icon(Icons.history)),
                 // Tab(icon: Icon(Icons.groups_2_rounded)),
                 //Tab(icon: Icon(Icons.switch_account_rounded)),
-                Tab(icon: Icon(Icons.account_circle)), // Ícone para a guia de login
-                Tab(icon: Icon(Icons.person_add)), // Ícone para a guia de cadastro
+                Tab(
+                    icon: Icon(
+                        Icons.account_circle)), // Ícone para a guia de login
+                Tab(
+                    icon: Icon(
+                        Icons.person_add)), // Ícone para a guia de cadastro
               ],
             ),
             title: Row(

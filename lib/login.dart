@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:truco_nato/match_history.dart';
 
-
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -11,29 +10,31 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;  
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-
-  // Método que realiza a validação se o email e senha colocados nos campos de login realmente existem 
+  // Método que realiza a validação se o email e senha colocados nos campos de login realmente existem
   Future<void> _signInWithEmailAndPassword() async {
     try {
-      final UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      final UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
 
       if (userCredential.user != null) {
-          // Navega para a tela de histórico 
-          Navigator.push(context, MaterialPageRoute(builder: (context) => MatchHistory()));
-          print(userCredential.user);
+        // Navega para a tela de histórico
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MatchHistory()));
+        print(userCredential.user);
       }
     } catch (e) {
       // Lidar com erros de autenticação
-      print('Erro de autenticação: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro de login.')),
+      );
+      return;
     }
   }
 
@@ -64,7 +65,7 @@ class _LoginState extends State<Login> {
                       width: 250,
                       child: TextFormField(
                         controller: _emailController,
-                        onChanged: (text){
+                        onChanged: (text) {
                           print("Email: $text");
                         },
                         decoration: InputDecoration(
@@ -81,7 +82,7 @@ class _LoginState extends State<Login> {
                       width: 250,
                       child: TextFormField(
                         controller: _passwordController,
-                        onChanged: (text){
+                        onChanged: (text) {
                           print("Password: $text");
                         },
                         obscureText: true,

@@ -10,12 +10,6 @@ class Cadastro extends StatefulWidget {
 
 
 class _CadastroState extends State<Cadastro> {
-
-
-
-
-
-  
   final FirebaseAuth _auth = FirebaseAuth.instance;  
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
