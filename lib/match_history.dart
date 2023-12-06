@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:truco_nato/add_match.dart';
 import 'package:truco_nato/match_detail.dart';
 
 class CustomListItem extends StatelessWidget {
@@ -188,7 +189,8 @@ class MatchHistory extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your action here
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddMatch()));
         },
         child: Icon(Icons.interests_rounded), // Replace with your desired icon
         backgroundColor:

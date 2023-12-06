@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:truco_nato/match_history.dart';
 import 'package:truco_nato/profile.dart';
 
-class MyScreen extends StatefulWidget {
+class AddMatch extends StatefulWidget {
   @override
-  _MyScreenState createState() => _MyScreenState();
+  _AddMatchState createState() => _AddMatchState();
 }
 
-class _MyScreenState extends State<MyScreen> {
+class _AddMatchState extends State<AddMatch> {
   String enteredName = '';
   int redCounter = 0;
   int greenCounter = 0;
