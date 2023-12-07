@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:truco_nato/match_history.dart';
+import 'package:truco_nato/model/user_model.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -14,8 +15,18 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  Stream<UserModel?> get user {
+    return _auth.authStateChanges().map(
+          (event) => _userFromFirebaseUser(event),
+        );
+  }
+
+  UserModel? _userFromFirebaseUser(User? user) {
+    return user != null ? UserModel(user.uid) : null;
+  }
+
   // Método que realiza a validação se o email e senha colocados nos campos de login realmente existem
-  Future<void> _signInWithEmailAndPassword() async {
+  Future<UserModel?> _signInWithEmailAndPassword() async {
     try {
       final UserCredential userCredential =
           await _auth.signInWithEmailAndPassword(
@@ -23,18 +34,21 @@ class _LoginState extends State<Login> {
         password: _passwordController.text,
       );
 
+      User? user = userCredential.user;
+
       if (userCredential.user != null) {
         // Navega para a tela de histórico
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => MatchHistory()));
         print(userCredential.user);
+        return _userFromFirebaseUser(user);
       }
     } catch (e) {
       // Lidar com erros de autenticação
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro de login.')),
       );
-      return;
+      return null;
     }
   }
 

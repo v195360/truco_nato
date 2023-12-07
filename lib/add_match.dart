@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:truco_nato/match_history.dart';
+import 'package:truco_nato/model/match_detail.dart';
 import 'package:truco_nato/profile.dart';
+import 'package:truco_nato/provider/firebase_firestore.dart';
 
 class AddMatch extends StatefulWidget {
   @override
@@ -8,9 +10,10 @@ class AddMatch extends StatefulWidget {
 }
 
 class _AddMatchState extends State<AddMatch> {
-  String enteredName = '';
-  int redCounter = 0;
-  int greenCounter = 0;
+  String oponente = '';
+  String resultado = '';
+  int pontosOponente = 0;
+  int pontosJogador = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class _AddMatchState extends State<AddMatch> {
             TextField(
               onChanged: (value) {
                 setState(() {
-                  enteredName = value;
+                  oponente = value;
                 });
               },
               decoration:
@@ -42,8 +45,8 @@ class _AddMatchState extends State<AddMatch> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        greenCounter++;
-                        checkCounter(greenCounter, 'jogador');
+                        pontosJogador++;
+                        checkCounter(pontosJogador, 'jogador');
                       });
                     },
                     style: ElevatedButton.styleFrom(
@@ -53,7 +56,7 @@ class _AddMatchState extends State<AddMatch> {
                           EdgeInsets.all(40.0), // Adjust the size as needed
                     ),
                     child: Text(
-                      '$greenCounter',
+                      '$pontosJogador',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
@@ -72,8 +75,8 @@ class _AddMatchState extends State<AddMatch> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          redCounter++;
-                          checkCounter(redCounter, 'oponente');
+                          pontosOponente++;
+                          checkCounter(pontosOponente, 'oponente');
                         });
                       },
                       style: ElevatedButton.styleFrom(
@@ -83,13 +86,13 @@ class _AddMatchState extends State<AddMatch> {
                             EdgeInsets.all(40.0), // Adjust the size as needed
                       ),
                       child: Text(
-                        '$redCounter',
+                        '$pontosOponente',
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      '$enteredName',
+                      '$oponente',
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -134,10 +137,29 @@ class _AddMatchState extends State<AddMatch> {
           content: Text(message),
           actions: [
             TextButton(
-              onPressed: () {
+              onPressed: () async {
+                // Create an instance of your MatchDetail class with the relevant data
+                MatchDetail match = MatchDetail.withData(
+                  pontosJogador: pontosJogador,
+                  pontosOponente: pontosOponente,
+                  resultado: jogador,
+                  oponente: oponente,
+                  data: DateTime.now().toString(),
+                );
+
+                // Get the instance of FirestoreDatabase
+                FirestoreDatabase database = FirestoreDatabase.helper;
+
+                // Insert the match into Firestore
+                await database.insertMatch(match);
+
                 Navigator.of(context).pop();
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Partida salva com sucesso.')),
+                );
               },
-              child: Text('OK'),
+              child: Text('Salvar'),
             ),
           ],
         );

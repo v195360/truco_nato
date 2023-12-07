@@ -4,7 +4,7 @@ import 'profile.dart';
 import 'login.dart';
 import 'cadastro.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'provider/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length:
-            4, // Altere o comprimento para 5 para incluir a guia de cadastro
+        length: 2,
         child: Scaffold(
           body: TabBarView(children: [
             Login(),
